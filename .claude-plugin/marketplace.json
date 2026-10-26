@@ -1,0 +1,31 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "steroid-claude",
+  "owner": {
+    "name": "Malek Hassan",
+    "url": "https://github.com/Malek1414"
+  },
+  "metadata": {
+    "description": "Steroid Claude: Malek's whole Claude Code setup in one install. Skills, 145 subagents, hooks, MCP servers, claude-mem, superpowers and a second brain."
+  },
+  "plugins": [
+    {
+      "name": "steroid-claude",
+      "source": "./plugins/steroid-claude",
+      "description": "Core: one-command setup of the full stack (companion plugins, MCP servers, claude-mem), 18 skills, a second-brain vault, doctor and uninstall commands.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": ["setup", "skills", "mcp", "memory", "second-brain"],
+      "keywords": ["claude-code-setup", "dotfiles", "skills", "mcp", "claude-mem", "superpowers", "second-brain"]
+    },
+    {
+      "name": "steroid-agents",
+      "source": "./plugins/steroid-agents",
+      "description": "145 specialist subagents (languages, infra, data, security, product, research) from VoltAgent's awesome-claude-code-subagents plus semble code search.",
+      "version": "1.0.0",
+      "category": "development",
+      "tags": ["agents", "subagents"],
+      "keywords": ["subagents", "agents", "specialists"]
+    }
+  ]
+}

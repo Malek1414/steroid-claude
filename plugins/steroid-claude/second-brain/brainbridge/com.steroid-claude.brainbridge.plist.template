@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.steroid-claude.brainbridge</string>
+
+  <!-- Absolute paths: launchd does not source your shell profile, so a
+       version-managed node is not on its PATH. -->
+  <key>ProgramArguments</key>
+  <array>
+    <string>{{NODE}}</string>
+    <string>{{DIR}}/index.js</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>{{DIR}}</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>{{HOME}}/Library/Logs/brainbridge.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>{{HOME}}/Library/Logs/brainbridge.err.log</string>
+
+  <!-- git needs a PATH to find its helpers and the osxkeychain credential
+       helper; without this the push hangs waiting for a username. -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>VAULT_PATH</key>
+    <string>{{VAULT}}</string>
+  </dict>
+</dict>
+</plist>

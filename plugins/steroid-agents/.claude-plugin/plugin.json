@@ -1,0 +1,11 @@
+{
+  "name": "steroid-agents",
+  "displayName": "Steroid Agents",
+  "description": "145 specialist subagents for Claude Code: languages, frameworks, infra, data and ML, security, product, research and orchestration.",
+  "version": "1.0.0",
+  "author": { "name": "Malek Hassan", "url": "https://github.com/Malek1414" },
+  "homepage": "https://github.com/Malek1414/steroid-claude",
+  "repository": "https://github.com/Malek1414/steroid-claude",
+  "license": "MIT",
+  "keywords": ["agents", "subagents", "specialists"]
+}

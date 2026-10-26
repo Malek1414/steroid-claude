@@ -1,0 +1,29 @@
+{
+  "_comment": "Merged into ~/.claude/settings.json by `setup.sh --settings`. Keys you already have are never overwritten; uninstall removes only the keys it added.",
+  "effortLevel": "high",
+  "spinnerVerbs": {
+    "mode": "replace",
+    "verbs": [
+      "Bulking up",
+      "Juicing the context window",
+      "Pumping tokens",
+      "Hitting a PR",
+      "Adding plates",
+      "Spotting the build",
+      "Carb-loading",
+      "Chugging pre-workout",
+      "Doing one more rep",
+      "Flexing",
+      "Getting swole",
+      "Cutting the fat",
+      "Going beast mode",
+      "Maxing out",
+      "Supersetting",
+      "Hitting legs",
+      "Lifting heavy",
+      "Mainlining creatine",
+      "Shredding",
+      "Roid-raging at the bug"
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: JSON manifests parse
+        run: |
+          for f in .claude-plugin/marketplace.json plugins/*/.claude-plugin/plugin.json \
+                   plugins/steroid-claude/hooks/hooks.json plugins/steroid-claude/templates/settings.recommended.json; do
+            python3 -m json.tool "$f" > /dev/null && echo "ok  $f"
+          done
+
+      - name: Skill and agent frontmatter
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, sys
+          bad = []
+          files = list(pathlib.Path("plugins/steroid-claude/skills").glob("*/SKILL.md")) \
+                + list(pathlib.Path("plugins/steroid-agents/agents").glob("*.md"))
+          for p in files:
+              m = re.match(r"^---\n(.*?)\n---\n", p.read_text(), re.S)
+              if not m or not re.search(r"^name:\s*\S", m.group(1), re.M) or not re.search(r"^description:", m.group(1), re.M):
+                  bad.append(str(p))
+              elif re.search(r"^model:\s*haiku", m.group(1), re.M):
+                  bad.append(f"{p} (model: haiku is not allowed here)")
+          print(f"{len(files) - len(bad)}/{len(files)} ok")
+          if bad:
+              print("\n".join(bad)); sys.exit(1)
+          PY
+
+      - name: Shell syntax and shellcheck
+        run: |
+          files="install.sh plugins/steroid-claude/scripts/*.sh plugins/steroid-claude/hooks/*.sh plugins/steroid-claude/second-brain/brainbridge/*.sh"
+          for f in $files; do bash -n "$f"; done
+          shellcheck -S warning $files
+
+      - name: Setup dry run
+        run: |
+          mkdir -p "$RUNNER_TEMP/bin"
+          printf '#!/bin/sh\necho "[]"\n' > "$RUNNER_TEMP/bin/claude"   # stub CLI: nothing installed yet
+          chmod +x "$RUNNER_TEMP/bin/claude"
+          PATH="$RUNNER_TEMP/bin:$PATH" CLAUDE_CONFIG_DIR="$RUNNER_TEMP/cfg" \
+            bash plugins/steroid-claude/scripts/setup.sh --dry-run --with all --second-brain "$RUNNER_TEMP/brain" --settings
+          test ! -e "$RUNNER_TEMP/cfg/steroid-claude" && echo "dry run changed nothing"
+
+      - name: brainbridge tests
+        working-directory: plugins/steroid-claude/second-brain/brainbridge
+        run: npm ci && npm test

@@ -1,0 +1,17 @@
+{
+  "description": "Steroid Claude: suggest /steroid-claude:setup until the stack has been installed",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/session-start.sh\"",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

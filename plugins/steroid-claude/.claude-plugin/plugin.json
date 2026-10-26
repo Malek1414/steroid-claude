@@ -1,0 +1,11 @@
+{
+  "name": "steroid-claude",
+  "displayName": "Steroid Claude",
+  "description": "Malek's whole Claude Code setup in one install: companion plugins, MCP servers, claude-mem, 18 skills, a second-brain vault, plus setup, doctor and uninstall commands.",
+  "version": "1.0.0",
+  "author": { "name": "Malek Hassan", "url": "https://github.com/Malek1414" },
+  "homepage": "https://github.com/Malek1414/steroid-claude",
+  "repository": "https://github.com/Malek1414/steroid-claude",
+  "license": "MIT",
+  "keywords": ["setup", "skills", "mcp", "claude-mem", "superpowers", "second-brain"]
+}
